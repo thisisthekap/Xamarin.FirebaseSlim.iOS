@@ -1,12 +1,10 @@
 using System;
-using FirebaseProxy;
 using Foundation;
 using ObjCRuntime;
 
 namespace Xamarin.FirebaseSlim.iOS
 {
 	[Static]
-	[Verify (ConstantsInterfaceAssociation)]
 	partial interface Constants
 	{
 		// extern double FirebaseProxyVersionNumber;
@@ -84,8 +82,7 @@ namespace Xamarin.FirebaseSlim.iOS
 		[Export ("handleUniversalLink:withCompletion:")]
 		void HandleUniversalLink (NSUserActivity userActivity, Action<DynamicLinkSlim, NSError> completion);
 
-		// -(void)createShortenedDynamicLinkWithDataLink:(NSURL * _Nonnull)dataLink appIdentifier:(NSString * _Nonnull)appIdentifier domain:(NSString * _Nonnull)domain appStoreId:(NSString * _Nullable)appStoreId title:(NSString * _Nullable)title text:(NSString * _Nullable)text imageUrl:(NSURL * _Nullable)imageUrl completion:(void (^ _Nonnull)(NSURL * _Nullable))completion;
-		[Export ("createShortenedDynamicLinkWithDataLink:appIdentifier:domain:appStoreId:title:text:imageUrl:completion:")]
-		void CreateShortenedDynamicLinkWithDataLink (NSUrl dataLink, string appIdentifier, string domain, [NullAllowed] string appStoreId, [NullAllowed] string title, [NullAllowed] string text, [NullAllowed] NSUrl imageUrl, Action<NSURL> completion);
-	}
+		[Export("createShortenedDynamicLinkWithDataLink:appIdentifier:domain:appStoreId:title:text:imageUrl:completion:")]
+        void CreateShortenedDynamicLinkWithDataLink(NSUrl dataLink, string appIdentifier, string domain, [NullAllowed] string appStoreId, [NullAllowed] string title, [NullAllowed] string text, [NullAllowed] NSUrl imageUrl, Action<NSUrl> completion);
+    }
 }
