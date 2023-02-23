@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Xamarin.Legacy.Sdk/0.2.0-alpha2">
+  <PropertyGroup>
+    <TargetFrameworks>xamarin.ios10;net6.0-ios</TargetFrameworks>
+    <NoNFloatUsing Condition="'$(TargetFramework)' == 'xamarin.ios10'">true</NoNFloatUsing>
+    <IsBindingProject>true</IsBindingProject>
+    <NoBindingEmbedding>true</NoBindingEmbedding>
+    <RootNamespace>Xamarin.FirebaseSlim.iOS</RootNamespace>
+    <SupportedOSPlatformVersion>12.5</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>Xamarin.FirebaseSlim.iOS</PackageId>
+    <Version>10.5.0</Version>
+    <Description>Contains bindings for https://github.com/firebase/firebase-ios-sdkk</Description>
+    <Authors>Christian Kapplmüller, Hipolyto Obeso Huerta</Authors>
+    <Company>fun.music IT GmbH</Company>
+    <PackageOutputPath>nugetoutput</PackageOutputPath>
+  </PropertyGroup>
+
+  <Import Project="FirebaseProxy.targets" />
+  <ItemGroup>
+    <_NativeReference Include="..\Output\FirebaseProxy.xcframework">
+      <_Id>$(_FirebaseProxyId)</_Id>
+    </_NativeReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FirebaseProxy.targets" Pack="True" PackagePath="build/Xamarin.FirebaseSlim.iOS.targets" />
+    <None Include="FirebaseProxy.targets" Pack="True" PackagePath="buildTransitive/Xamarin.FirebaseSlim.iOS.targets" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.ios10'">
+    <Compile Remove="ApiDefinitions.cs" />
+    <Compile Remove="StructsAndEnums.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinitions.cs" />
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+
+</Project>
