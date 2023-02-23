@@ -1,2 +1,2 @@
-binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
-binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseDynamicLinksBinary.json"
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" "10.5.0"
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseDynamicLinksBinary.json" "10.5.0"
