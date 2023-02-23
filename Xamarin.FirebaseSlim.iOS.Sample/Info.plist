@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Xamarin FacebookProxy</string>
+	<string>Xamarin FirebaseProxy</string>
 	<key>CFBundleIdentifier</key>
-	<string>xamarin.facebookProxy</string>
+	<string>xamarin.firebaseProxy</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

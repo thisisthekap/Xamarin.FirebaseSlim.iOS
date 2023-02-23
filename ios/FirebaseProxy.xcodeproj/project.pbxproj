@@ -132,7 +132,7 @@
 				86C2A6D329A59B440075D6C0 /* FirebaseAnalytics */,
 				86C2A6D529A59B440075D6C0 /* FirebaseDynamicLinks */,
 			);
-			productName = FacebookProxy;
+			productName = FirebaseProxy;
 			productReference = B08309D0241256530090FB75 /* FirebaseProxy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
