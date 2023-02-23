@@ -1,13 +1,11 @@
 using System;
-using FirebaseProxy;
 using Foundation;
 using ObjCRuntime;
 
 namespace Xamarin.FirebaseSlim.iOS
 {
 	[Static]
-	[Verify (ConstantsInterfaceAssociation)]
-	partial interface Constants
+	partial interface FirebaseProxyConstants
 	{
 		// extern double FirebaseProxyVersionNumber;
 		[Field ("FirebaseProxyVersionNumber", "__Internal")]
@@ -15,7 +13,7 @@ namespace Xamarin.FirebaseSlim.iOS
 
 		// extern const unsigned char[] FirebaseProxyVersionString;
 		[Field ("FirebaseProxyVersionString", "__Internal")]
-		byte[] FirebaseProxyVersionString { get; }
+		NSString FirebaseProxyVersionString { get; }
 	}
 
 	// @interface AnalyticsManagerSlim : NSObject
