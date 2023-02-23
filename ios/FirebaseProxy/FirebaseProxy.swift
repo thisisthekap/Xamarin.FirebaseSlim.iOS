@@ -5,7 +5,7 @@ import UIKit
 import FirebaseAnalytics
 import FirebaseDynamicLinks
 
-@objc public enum DynamicLinkMatchTyperEnum : Int {
+@objc public enum DynamicLinkMatchTypeEnum : Int {
     case none = 0
     case weak = 1
     case defaultMatch = 2
@@ -15,10 +15,10 @@ import FirebaseDynamicLinks
 @objc(DynamicLinkSlim)
 public class DynamicLinkSlim: NSObject {
     @objc public let url: URL?
-    @objc public let matchType: DynamicLinkMatchTyperEnum
+    @objc public let matchType: DynamicLinkMatchTypeEnum
     
     
-    init(url: URL?, matchType: DynamicLinkMatchTyperEnum) {
+    init(url: URL?, matchType: DynamicLinkMatchTypeEnum) {
         self.url = url
         self.matchType = matchType
     }
@@ -32,22 +32,22 @@ public class AnalyticsManagerSlim : NSObject {
     public static let shared = AnalyticsManagerSlim()
     
     @objc
-    func logEvent(_ name: String, parameters: [String: Any]) {
+    public func logEvent(_ name: String, parameters: [String: Any]) {
         Analytics.logEvent(name, parameters: parameters)
     }
     
     @objc
-    var appInstanceId: String {
+    public var appInstanceId: String {
         return Analytics.appInstanceID() ?? ""
     }
     
     @objc
-    func setUserId(_ userId: String) {
+    public func setUserId(_ userId: String) {
         Analytics.setUserID(userId)
     }
     
     @objc
-    func setUserProperty(_ value: String, forName name: String) {
+    public func setUserProperty(_ value: String, forName name: String) {
         Analytics.setUserProperty(value, forName: name)
     }
 }
@@ -59,28 +59,28 @@ public class DynamicLinksManagerSlim : NSObject {
     public static let shared = DynamicLinksManagerSlim()
     
     @objc
-    public func shouldHandleDynamicLinkFromCustomSchemeUrl(fromCustomSchemeURL url: URL) -> Bool {
+    public func shouldHandleDynamicLink(fromCustomSchemeURL url: URL) -> Bool {
         let dynamicLinks = DynamicLinks.dynamicLinks()
         return dynamicLinks.shouldHandleDynamicLink(fromCustomSchemeURL: url)
-        }
+    }
     
     @objc
     public func fromCustomSchemeUrl(fromCustomSchemeURL url: URL) -> DynamicLinkSlim? {
         let dynamicLinks = DynamicLinks.dynamicLinks()
         if let dynamicLink = dynamicLinks.dynamicLink(fromCustomSchemeURL: url) {
-            var matchType = DynamicLinkMatchTyperEnum.none
+            var matchType = DynamicLinkMatchTypeEnum.none
             
             switch dynamicLink.matchType {
             case .unique:
-                matchType = DynamicLinkMatchTyperEnum.unique
+                matchType = DynamicLinkMatchTypeEnum.unique
             case .default:
-                matchType = DynamicLinkMatchTyperEnum.defaultMatch
+                matchType = DynamicLinkMatchTypeEnum.defaultMatch
             case .weak:
-                matchType = DynamicLinkMatchTyperEnum.weak
+                matchType = DynamicLinkMatchTypeEnum.weak
             case .none:
-                matchType = DynamicLinkMatchTyperEnum.none
+                matchType = DynamicLinkMatchTypeEnum.none
             @unknown default:
-                matchType = DynamicLinkMatchTyperEnum.none
+                matchType = DynamicLinkMatchTypeEnum.none
             }
             return DynamicLinkSlim(url: dynamicLink.url,
                                    matchType: matchType)
@@ -97,23 +97,23 @@ public class DynamicLinksManagerSlim : NSObject {
     }
     
     @objc
-    func handleUniversalLink(_ userActivity: NSUserActivity, withCompletion completion: @escaping (DynamicLinkSlim?, NSError?) -> Void) {
+    public func handleUniversalLink(_ userActivity: NSUserActivity, withCompletion completion: @escaping (DynamicLinkSlim?, NSError?) -> Void) {
         DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { (dynamicLink, error) in
             if let dynamicLink = dynamicLink {
                 
-                var matchType = DynamicLinkMatchTyperEnum.none
+                var matchType = DynamicLinkMatchTypeEnum.none
                 
                 switch dynamicLink.matchType {
                 case .unique:
-                    matchType = DynamicLinkMatchTyperEnum.unique
+                    matchType = DynamicLinkMatchTypeEnum.unique
                 case .default:
-                    matchType = DynamicLinkMatchTyperEnum.defaultMatch
+                    matchType = DynamicLinkMatchTypeEnum.defaultMatch
                 case .weak:
-                    matchType = DynamicLinkMatchTyperEnum.weak
+                    matchType = DynamicLinkMatchTypeEnum.weak
                 case .none:
-                    matchType = DynamicLinkMatchTyperEnum.none
+                    matchType = DynamicLinkMatchTypeEnum.none
                 @unknown default:
-                    matchType = DynamicLinkMatchTyperEnum.none
+                    matchType = DynamicLinkMatchTypeEnum.none
                 }
                 
                 let dynamicLinkSlim = DynamicLinkSlim(url: dynamicLink.url,
@@ -127,7 +127,7 @@ public class DynamicLinksManagerSlim : NSObject {
     }
     
     @objc
-    func getShortenUrlAsync(dataLink: URL, appIdentifier: String, domain: String, appStoreId: String?, title: String?, text: String?, imageUrl: URL?, completion: @escaping (URL?) -> Void) {
+    public func createShortenedDynamicLink(dataLink: URL, appIdentifier: String, domain: String, appStoreId: String?, title: String?, text: String?, imageUrl: URL?, completion: @escaping (URL?) -> Void) {
         var linkBuilder = DynamicLinkComponents(link: dataLink, domainURIPrefix: domain)
         
         linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: appIdentifier)

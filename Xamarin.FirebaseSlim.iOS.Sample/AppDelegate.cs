@@ -15,6 +15,7 @@ namespace Sample
         [Export("application:didFinishLaunchingWithOptions:")]
         public bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
+            var analyticsManager = Xamarin.FirebaseSlim.iOS.AnalyticsManagerSlim.Shared;
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
             return true;

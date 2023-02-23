@@ -3,11 +3,11 @@
 namespace Xamarin.FirebaseSlim.iOS
 {
     [Native]
-	public enum DynamicLinkMatchTyperEnum : long
-	{
-		None = 0,
-		Weak = 1,
-		DefaultMatch = 2,
-		Unique = 3
-	}
+    public enum DynamicLinkMatchTypeEnum : long
+    {
+        None = 0,
+        Weak = 1,
+        DefaultMatch = 2,
+        Unique = 3
+    }
 }
