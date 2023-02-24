@@ -156,28 +156,28 @@ public class DynamicLinksManagerSlim : NSObject {
         let domain = dynamicLinkComponents.domain
         
         var linkBuilder = DynamicLinkComponents(link: link!, domainURIPrefix: domain)
-                
-                linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: dynamicLinkComponents.appIdentifier)
-                linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: dynamicLinkComponents.appIdentifier)
-                
-                if let appStoreId = dynamicLinkComponents.appStoreId {
-                    linkBuilder?.iOSParameters?.appStoreID = appStoreId
-                }
-                
-                linkBuilder?.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
-                linkBuilder?.socialMetaTagParameters?.title = dynamicLinkComponents.title
-                linkBuilder?.socialMetaTagParameters?.descriptionText = dynamicLinkComponents.text
-                linkBuilder?.socialMetaTagParameters?.imageURL = URL(string: dynamicLinkComponents.imageUrl)
-                
-                linkBuilder?.shorten { (url, _, error) in
-                    if let error = error {
-                        print("Error getting shortened URL: \(error.localizedDescription)")
-                        completion(nil)
-                    } else if let urlValid = url {
-                        completion(urlValid.absoluteString)
-                    } else {
-                        completion(nil)
-                    }
-                }
+        
+        linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: dynamicLinkComponents.appIdentifier)
+        linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: dynamicLinkComponents.appIdentifier)
+        
+        if let appStoreId = dynamicLinkComponents.appStoreId {
+            linkBuilder?.iOSParameters?.appStoreID = appStoreId
+        }
+        
+        linkBuilder?.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
+        linkBuilder?.socialMetaTagParameters?.title = dynamicLinkComponents.title
+        linkBuilder?.socialMetaTagParameters?.descriptionText = dynamicLinkComponents.text
+        linkBuilder?.socialMetaTagParameters?.imageURL = URL(string: dynamicLinkComponents.imageUrl)
+        
+        linkBuilder?.shorten { (url, _, error) in
+            if let error = error {
+                print("Error getting shortened URL: \(error.localizedDescription)")
+                completion(nil)
+            } else if let urlValid = url {
+                completion(urlValid.absoluteString)
+            } else {
+                completion(nil)
+            }
+        }
     }
 }
