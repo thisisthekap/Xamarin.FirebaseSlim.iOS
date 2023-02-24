@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		861A343629A5B51C00D6F9CB /* DynamicLinkParametersProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861A343529A5B51C00D6F9CB /* DynamicLinkParametersProxy.swift */; };
 		86C2A6D429A59B440075D6C0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 86C2A6D329A59B440075D6C0 /* FirebaseAnalytics */; };
 		86C2A6D629A59B440075D6C0 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 86C2A6D529A59B440075D6C0 /* FirebaseDynamicLinks */; };
 		B08309D5241256530090FB75 /* FirebaseProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = B08309D3241256530090FB75 /* FirebaseProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,7 +25,6 @@
 		861A342729A5A81B00D6F9CB /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
 		861A342829A5A81C00D6F9CB /* FirebaseAnalyticsSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseAnalyticsSwift.xcframework; sourceTree = "<group>"; };
 		861A342929A5A81C00D6F9CB /* FBLPromises.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FBLPromises.xcframework; sourceTree = "<group>"; };
-		861A343529A5B51C00D6F9CB /* DynamicLinkParametersProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkParametersProxy.swift; sourceTree = "<group>"; };
 		B08309D0241256530090FB75 /* FirebaseProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B08309D3241256530090FB75 /* FirebaseProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirebaseProxy.h; sourceTree = "<group>"; };
 		B08309D4241256530090FB75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 				B08309D3241256530090FB75 /* FirebaseProxy.h */,
 				B08309D4241256530090FB75 /* Info.plist */,
 				B08309E6241259650090FB75 /* FirebaseProxy.swift */,
-				861A343529A5B51C00D6F9CB /* DynamicLinkParametersProxy.swift */,
 			);
 			path = FirebaseProxy;
 			sourceTree = "<group>";
@@ -188,7 +185,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				861A343629A5B51C00D6F9CB /* DynamicLinkParametersProxy.swift in Sources */,
 				B08309E7241259650090FB75 /* FirebaseProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

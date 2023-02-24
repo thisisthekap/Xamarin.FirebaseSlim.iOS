@@ -42,8 +42,55 @@ namespace Xamarin.FirebaseSlim.iOS
 		void SetUserProperty (string value, string name);
 	}
 
-	// @interface DynamicLinkSlim : NSObject
-	[BaseType (typeof(NSObject))]
+    // @interface DynamicLinkComponentsSim : NSObject
+    [BaseType(typeof(NSObject))]
+    interface DynamicLinkComponentsSim
+    {
+        // @property (copy, nonatomic) NSString * _Nonnull dataLink;
+        [Export("dataLink")]
+        string DataLink { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull domain;
+        [Export("domain")]
+        string Domain { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nullable appStoreId;
+        [NullAllowed, Export("appStoreId")]
+        string AppStoreId { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull appIdentifier;
+        [Export("appIdentifier")]
+        string AppIdentifier { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull title;
+        [Export("title")]
+        string Title { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull text;
+        [Export("text")]
+        string Text { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull imageUrl;
+        [Export("imageUrl")]
+        string ImageUrl { get; set; }
+    }
+
+    // @interface FirebaseCoreSlim : NSObject
+    [BaseType(typeof(NSObject))]
+    interface FirebaseCoreSlim
+    {
+        // @property (readonly, nonatomic, strong, class) CoreSlim * _Nonnull shared;
+        [Static]
+        [Export("shared", ArgumentSemantic.Strong)]
+        FirebaseCoreSlim Shared { get; }
+
+        // +(void)Configure;
+        [Export("Configure")]
+        void Configure();
+    }
+
+    // @interface DynamicLinkSlim : NSObject
+    [BaseType (typeof(NSObject))]
 	[DisableDefaultCtor]
 	interface DynamicLinkSlim
 	{
@@ -55,6 +102,8 @@ namespace Xamarin.FirebaseSlim.iOS
 		[Export ("matchType")]
 		DynamicLinkMatchTypeEnum MatchType { get; }
 	}
+
+
 
 	// @interface DynamicLinksManagerSlim : NSObject
 	[BaseType (typeof(NSObject))]
@@ -72,7 +121,7 @@ namespace Xamarin.FirebaseSlim.iOS
 		// -(DynamicLinkSlim * _Nullable)fromCustomSchemeUrlFromCustomSchemeURL:(NSURL * _Nonnull)url __attribute__((warn_unused_result("")));
 		[Export ("fromCustomSchemeUrlFromCustomSchemeURL:")]
 		[return: NullAllowed]
-		DynamicLinkSlim FromCustomSchemeUrlFromCustomSchemeURL (NSUrl url);
+		DynamicLinkSlim FromCustomSchemeUrl (NSUrl url);
 
 		// -(void)performDiagnosticsWithCompletion:(void (^ _Nonnull)(NSString * _Nullable, BOOL))completion;
 		[Export ("performDiagnosticsWithCompletion:")]
@@ -82,7 +131,8 @@ namespace Xamarin.FirebaseSlim.iOS
 		[Export ("handleUniversalLink:withCompletion:")]
 		void HandleUniversalLink (NSUserActivity userActivity, Action<DynamicLinkSlim, NSError> completion);
 
-		[Export("createShortenedDynamicLinkWithDataLink:appIdentifier:domain:appStoreId:title:text:imageUrl:completion:")]
-        void CreateShortenedDynamicLinkWithDataLink(NSUrl dataLink, string appIdentifier, string domain, [NullAllowed] string appStoreId, [NullAllowed] string title, [NullAllowed] string text, [NullAllowed] NSUrl imageUrl, Action<NSUrl> completion);
+        // -(void)GetShortenUrlWithCompletionWithDynamicLinkComponents:(DynamicLinkComponentsSim * _Nonnull)dynamicLinkComponents completion:(void (^ _Nonnull)(NSString * _Nullable))completion;
+        [Export("GetShortenUrlWithCompletionWithDynamicLinkComponents:completion:")]
+        void GetShortenUrlWithCompletionWithDynamicLinkComponents(DynamicLinkComponentsSim dynamicLinkComponents, Action<NSString> completion);
     }
 }

@@ -4,6 +4,7 @@ import Foundation
 import UIKit
 import FirebaseAnalytics
 import FirebaseDynamicLinks
+import FirebaseCore
 
 @objc public enum DynamicLinkMatchTypeEnum : Int {
     case none = 0
@@ -24,6 +25,17 @@ public class DynamicLinkSlim: NSObject {
     }
 }
 
+
+@objc(FirebaseCoreSlim)
+public class FirebaseCoreSlim: NSObject {
+    @objc
+    public static let shared  = FirebaseCoreSlim()
+    
+    @objc
+    public func Configure() {
+        FirebaseApp.configure()
+    }
+}
 
 @objc(AnalyticsManagerSlim)
 public class AnalyticsManagerSlim : NSObject {
@@ -50,6 +62,17 @@ public class AnalyticsManagerSlim : NSObject {
     public func setUserProperty(_ value: String, forName name: String) {
         Analytics.setUserProperty(value, forName: name)
     }
+}
+
+@objc(DynamicLinkComponentsSim)
+public class DynamicLinkComponentsSlim: NSObject {
+    @objc public var dataLink: String = ""
+        @objc public var domain: String = ""
+        @objc public var appStoreId: String?
+        @objc public var appIdentifier: String = ""
+        @objc public var title: String = ""
+        @objc public var text: String = ""
+        @objc public var imageUrl: String = ""
 }
 
 @objc(DynamicLinksManagerSlim)
@@ -127,40 +150,34 @@ public class DynamicLinksManagerSlim : NSObject {
     }
     
     @objc
-    public func createShortenedDynamicLink(dataLink: URL, appIdentifier: String, domain: String, appStoreId: String?, title: String?, text: String?, imageUrl: URL?, completion: @escaping (URL?) -> Void) {
-        var linkBuilder = DynamicLinkComponents(link: dataLink, domainURIPrefix: domain)
+    public func GetShortenUrlWithCompletion(dynamicLinkComponents: DynamicLinkComponentsSlim, completion: @escaping (String?) -> Void) {
+     
+        let link = URL(string: dynamicLinkComponents.dataLink)
+        let domain = dynamicLinkComponents.domain
         
-        linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: appIdentifier)
-        linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: appIdentifier)
-        
-        if let appStoreId = appStoreId {
-            linkBuilder?.iOSParameters?.appStoreID = appStoreId
-        }
-        
-        linkBuilder?.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
-        
-        if let title = title {
-            linkBuilder?.socialMetaTagParameters?.title = title
-        }
-        
-        if let text = text {
-            linkBuilder?.socialMetaTagParameters?.descriptionText = text
-        }
-        
-        if let imageUrl = imageUrl {
-            linkBuilder?.socialMetaTagParameters?.imageURL = imageUrl
-        }
-        
-        linkBuilder?.shorten { (url, _, error) in
-            if let error = error {
-                print("Error getting shortened URL: \(error.localizedDescription)")
-                completion(nil)
-            } else if let url = url {
-                completion(url as URL)
-            } else {
-                completion(nil)
-            }
-        }
+        var linkBuilder = DynamicLinkComponents(link: link!, domainURIPrefix: domain)
+                
+                linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: dynamicLinkComponents.appIdentifier)
+                linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: dynamicLinkComponents.appIdentifier)
+                
+                if let appStoreId = dynamicLinkComponents.appStoreId {
+                    linkBuilder?.iOSParameters?.appStoreID = appStoreId
+                }
+                
+                linkBuilder?.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
+                linkBuilder?.socialMetaTagParameters?.title = dynamicLinkComponents.title
+                linkBuilder?.socialMetaTagParameters?.descriptionText = dynamicLinkComponents.text
+                linkBuilder?.socialMetaTagParameters?.imageURL = URL(string: dynamicLinkComponents.imageUrl)
+                
+                linkBuilder?.shorten { (url, _, error) in
+                    if let error = error {
+                        print("Error getting shortened URL: \(error.localizedDescription)")
+                        completion(nil)
+                    } else if let urlValid = url {
+                        completion(urlValid.absoluteString)
+                    } else {
+                        completion(nil)
+                    }
+                }
     }
 }
-
