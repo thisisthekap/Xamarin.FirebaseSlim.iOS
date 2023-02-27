@@ -32,7 +32,7 @@ public class FirebaseCoreSlim: NSObject {
     public static let shared  = FirebaseCoreSlim()
     
     @objc
-    public func Configure() {
+    public func configure() {
         FirebaseApp.configure()
     }
 }
@@ -64,8 +64,8 @@ public class AnalyticsManagerSlim : NSObject {
     }
 }
 
-@objc(DynamicLinkComponentsSim)
-public class DynamicLinkComponentsSlim: NSObject {
+@objc(DynamicLinkCreationParameters)
+public class DynamicLinkCreationParameters: NSObject {
     @objc public var dataLink: String = ""
         @objc public var domain: String = ""
         @objc public var appStoreId: String?
@@ -120,8 +120,8 @@ public class DynamicLinksManagerSlim : NSObject {
     }
     
     @objc
-    public func handleUniversalLink(_ userActivity: NSUserActivity, withCompletion completion: @escaping (DynamicLinkSlim?, NSError?) -> Void) {
-        DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { (dynamicLink, error) in
+    public func handleUniversalLink(_ userActivity: NSUserActivity, withCompletion completion: @escaping (DynamicLinkSlim?, Error?) -> Void) -> Bool {
+        return DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { (dynamicLink, error) in
             if let dynamicLink = dynamicLink {
                 
                 var matchType = DynamicLinkMatchTypeEnum.none
@@ -143,14 +143,14 @@ public class DynamicLinksManagerSlim : NSObject {
                                                       matchType: matchType)
                 completion(dynamicLinkSlim, nil)
             } else {
-                let nsError = error as NSError? ?? NSError(domain: "Unknown error", code: 0, userInfo: nil)
-                completion(nil, nsError)
+                let theError = error ?? NSError(domain: "Unknown error", code: 0, userInfo: nil)
+                completion(nil, theError)
             }
         }
     }
     
     @objc
-    public func GetShortenUrlWithCompletion(dynamicLinkComponents: DynamicLinkComponentsSlim, completion: @escaping (String?) -> Void) {
+    public func createShortenedUrlWithCompletion(dynamicLinkComponents: DynamicLinkCreationParameters, completion: @escaping (String?, Error?) -> Void) {
      
         let link = URL(string: dynamicLinkComponents.dataLink)
         let domain = dynamicLinkComponents.domain
@@ -172,11 +172,11 @@ public class DynamicLinksManagerSlim : NSObject {
         linkBuilder?.shorten { (url, _, error) in
             if let error = error {
                 print("Error getting shortened URL: \(error.localizedDescription)")
-                completion(nil)
+                completion(nil, error)
             } else if let urlValid = url {
-                completion(urlValid.absoluteString)
+                completion(urlValid.absoluteString, nil)
             } else {
-                completion(nil)
+                completion(nil, NSError(domain: "Unknown error", code: 0, userInfo: nil))
             }
         }
     }
