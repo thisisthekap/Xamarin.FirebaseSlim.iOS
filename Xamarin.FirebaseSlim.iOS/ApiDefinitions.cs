@@ -33,13 +33,13 @@ namespace Xamarin.FirebaseSlim.iOS
 		[Export ("appInstanceId")]
 		string AppInstanceId { get; }
 
-		// -(void)setUserId:(NSString * _Nonnull)userId;
+		// -(void)setUserId:(NSString * _Nullable)userId;
 		[Export ("setUserId:")]
-		void SetUserId (string userId);
+		void SetUserId ([NullAllowed] string userId);
 
-		// -(void)setUserProperty:(NSString * _Nonnull)value forName:(NSString * _Nonnull)name;
+		// -(void)setUserProperty:(NSString * _Nullable)value forName:(NSString * _Nonnull)name;
 		[Export ("setUserProperty:forName:")]
-		void SetUserProperty (string value, string name);
+		void SetUserProperty ([NullAllowed] string value, string name);
 	}
 
 	// @interface DynamicLinkCreationParameters : NSObject

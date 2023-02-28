@@ -54,12 +54,12 @@ public class AnalyticsManagerSlim : NSObject {
     }
     
     @objc
-    public func setUserId(_ userId: String) {
+    public func setUserId(_ userId: String?) {
         Analytics.setUserID(userId)
     }
     
     @objc
-    public func setUserProperty(_ value: String, forName name: String) {
+    public func setUserProperty(_ value: String?, forName name: String) {
         Analytics.setUserProperty(value, forName: name)
     }
 }
@@ -155,7 +155,7 @@ public class DynamicLinksManagerSlim : NSObject {
         let link = URL(string: dynamicLinkComponents.dataLink)
         let domain = dynamicLinkComponents.domain
         
-        var linkBuilder = DynamicLinkComponents(link: link!, domainURIPrefix: domain)
+        let linkBuilder = DynamicLinkComponents(link: link!, domainURIPrefix: domain)
         
         linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: dynamicLinkComponents.appIdentifier)
         linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: dynamicLinkComponents.appIdentifier)
