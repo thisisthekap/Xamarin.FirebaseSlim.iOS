@@ -28,6 +28,16 @@ steps:
     fi
   displayName: "check version sanity"
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '7.0.103'
+  displayName: "install dotnet 7.0.103"
+
+- bash: |
+    dotnet workload install ios
+  displayName: "install ios workload"
+
 - bash: |
     ./clear.sh
   displayName: "clear.sh"
@@ -60,4 +70,4 @@ steps:
     assets: 'Xamarin.FirebaseSlim.iOS/nugetoutput/Xamarin.FirebaseSlim.iOS.*.nupkg'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'issueBased'
-  displayName: 
+  displayName: Create GitHub Release
