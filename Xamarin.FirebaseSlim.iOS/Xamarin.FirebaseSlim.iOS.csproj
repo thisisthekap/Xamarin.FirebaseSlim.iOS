@@ -6,13 +6,13 @@
     <IsBindingProject>true</IsBindingProject>
     <NoBindingEmbedding>true</NoBindingEmbedding>
     <RootNamespace>Xamarin.FirebaseSlim.iOS</RootNamespace>
-    <SupportedOSPlatformVersion>12.5</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>12.2</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>Xamarin.FirebaseSlim.iOS</PackageId>
-    <Version>10.5.0.15</Version>
+    <Version>10.5.0.18</Version>
     <Description>Contains bindings for https://github.com/firebase/firebase-ios-sdk</Description>
     <Authors>Christian Kapplmüller, Hipolyto Obeso Huerta</Authors>
     <Company>fun.music IT GmbH</Company>
